@@ -1,0 +1,26 @@
+build:
+  gpu: false
+  python_version: "3.10"
+  run:
+    - apt update -y && apt install -y software-properties-common python3-launchpadlib && apt update -y && add-apt-repository -y ppa:git-core/ppa && apt update -y
+    - apt install -y gcc g++ aria2 git git-lfs wget libgl1 libglib2.0-0 ffmpeg cmake libgtk2.0-0 libopenmpi-dev
+    - wget https://developer.download.nvidia.com/compute/cuda/12.1.0/local_installers/cuda_12.1.0_530.30.02_linux.run && sh cuda_12.1.0_530.30.02_linux.run --silent --toolkit
+    - pip install torch==2.2.1+cu121 torchvision==0.17.1+cu121 torchaudio==2.2.1+cu121 torchtext==0.17.1 torchdata==0.7.1 --extra-index-url https://download.pytorch.org/whl/cu121 -U
+    - pip install notebook pyngrok pickleshare ipywidgets opencv-python diffusers transformers
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ByteDance/AnimateDiff-Lightning/resolve/main/animatediff_lightning_4step_diffusers.safetensors -d /content/models -o animatediff_lightning_4step_diffusers.safetensors
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/raw/main/feature_extractor/preprocessor_config.json -d /content/models/epiCRealism/feature_extractor -o preprocessor_config.json
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/raw/main/safety_checker/config.json -d /content/models/epiCRealism/safety_checker -o config.json
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/resolve/main/safety_checker/model.safetensors -d /content/models/epiCRealism/safety_checker -o model.safetensors
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/raw/main/scheduler/scheduler_config.json -d /content/models/epiCRealism/scheduler -o scheduler_config.json
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/raw/main/text_encoder/config.json -d /content/models/epiCRealism/text_encoder -o config.json
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/resolve/main/text_encoder/model.safetensors -d /content/models/epiCRealism/text_encoder -o model.safetensors
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/raw/main/tokenizer/merges.txt -d /content/models/epiCRealism/tokenizer -o merges.txt
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/raw/main/tokenizer/special_tokens_map.json -d /content/models/epiCRealism/tokenizer -o special_tokens_map.json
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/raw/main/tokenizer/tokenizer_config.json -d /content/models/epiCRealism/tokenizer -o tokenizer_config.json
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/raw/main/tokenizer/vocab.json -d /content/models/epiCRealism/tokenizer -o vocab.json
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/raw/main/unet/config.json -d /content/models/epiCRealism/unet -o config.json
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/resolve/main/unet/diffusion_pytorch_model.safetensors -d /content/models/epiCRealism/unet -o diffusion_pytorch_model.safetensors
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/raw/main/vae/config.json -d /content/models/epiCRealism/vae -o config.json
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/resolve/main/vae/diffusion_pytorch_model.safetensors -d /content/models/epiCRealism/vae -o diffusion_pytorch_model.safetensors
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/raw/main/model_index.json -d /content/models/epiCRealism -o model_index.json
+predict: "/src/predict.py:Predictor"
