@@ -13,6 +13,7 @@ https://arxiv.org/abs/2403.12706
 
 ### 🖼 Output
 
+https://github.com/camenduru/animatediff-lightning-replicate/assets/54370274/10e3f82c-1098-439b-907f-1ee1d1fd5b6f
 
 ### 🏢 Sponsor
 https://replicate.com
