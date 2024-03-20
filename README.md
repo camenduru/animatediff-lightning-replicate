@@ -6,7 +6,8 @@
 https://replicate.com/camenduru/animatediff-lightning-4-step
 
 ### 📦 Model
-https://dagshub.com/ByteDance/AnimateDiff-Lightning
+https://dagshub.com/ByteDance/AnimateDiff-Lightning <br />
+https://civitai.com/models/25694 <br />
 
 ### 📄 Paper
 https://arxiv.org/abs/2403.12706
