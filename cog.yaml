@@ -6,7 +6,7 @@ build:
     - apt install -y gcc g++ aria2 git git-lfs wget libgl1 libglib2.0-0 ffmpeg cmake libgtk2.0-0 libopenmpi-dev
     - wget https://developer.download.nvidia.com/compute/cuda/12.1.0/local_installers/cuda_12.1.0_530.30.02_linux.run && sh cuda_12.1.0_530.30.02_linux.run --silent --toolkit
     - pip install torch==2.2.1+cu121 torchvision==0.17.1+cu121 torchaudio==2.2.1+cu121 torchtext==0.17.1 torchdata==0.7.1 --extra-index-url https://download.pytorch.org/whl/cu121 -U
-    - pip install notebook pyngrok pickleshare ipywidgets opencv-python diffusers transformers
+    - pip install notebook pyngrok pickleshare ipywidgets opencv-python imageio imageio-ffmpeg diffusers transformers
     - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ByteDance/AnimateDiff-Lightning/resolve/main/animatediff_lightning_4step_diffusers.safetensors -d /content/models -o animatediff_lightning_4step_diffusers.safetensors
     - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/raw/main/feature_extractor/preprocessor_config.json -d /content/models/epiCRealism/feature_extractor -o preprocessor_config.json
     - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/emilianJR/epiCRealism/raw/main/safety_checker/config.json -d /content/models/epiCRealism/safety_checker -o config.json

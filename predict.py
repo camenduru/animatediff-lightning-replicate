@@ -5,8 +5,28 @@ os.chdir('/content')
 
 import torch
 from diffusers import AnimateDiffPipeline, MotionAdapter, EulerDiscreteScheduler
-from diffusers.utils import export_to_video
 from safetensors.torch import load_file
+
+from typing import List, Union
+import tempfile
+import numpy as np
+import PIL.Image
+import imageio
+
+def export_to_video(
+    video_frames: Union[List[np.ndarray], List[PIL.Image.Image]], output_video_path: str = None, fps: int = 10
+) -> str:
+    if output_video_path is None:
+        output_video_path = tempfile.NamedTemporaryFile(suffix=".mp4").name
+    if isinstance(video_frames[0], np.ndarray):
+        video_frames = [(frame * 255).astype(np.uint8) for frame in video_frames]
+    elif isinstance(video_frames[0], PIL.Image.Image):
+        video_frames = [np.array(frame) for frame in video_frames]
+    writer = imageio.get_writer(output_video_path, fps=fps)
+    for frame in video_frames:
+        writer.append_data(frame)
+    writer.close()
+    return output_video_path
 
 def inference(prompt, guidance_scale, pipe):
     try:
